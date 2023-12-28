@@ -1,44 +1,63 @@
-from bs4 import BeautifulSoup
+import os
 from flask import Flask, render_template
-import requests
 
-from main import random_word_data
+from icrawler.builtin import GoogleImageCrawler
 
-app = Flask(__name__)
+from main import get_random_data
 
-def get_image_url(word):
-    # Формируем URL для запроса на freepik
-    search_url = f"https://ru.freepik.com/search?format=search&last_filter=query&last_value={word}&query={word}"
+app = Flask(__name__, static_url_path='/static')
 
-    # Отправляем запрос на страницу freepik
-    response = requests.get(search_url)
+def search_images(keyword):
 
-    # Проверяем успешность запроса
-    if response.status_code == 200:
-        # Используем BeautifulSoup для парсинга HTML
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Ищем первую картинку на странице
-        img_tag = soup.find('img', class_='landscape loaded')
+    file_path = 'static\\000001.jpg'
 
-        if img_tag:
-            # Получаем URL изображения
-            img_url = img_tag['src']
-            return img_url
-    return None
+    try:
+        # Попытка удалить файл
+        os.remove(file_path)
+        print(f"Файл {file_path} успешно удален.")
+    except FileNotFoundError:
+        # Обработка исключения, если файл не существует
+        print(f"Файл {file_path} не существует. Ничего не удаляется.")
+    except Exception as e:
+        # Обработка других исключений, если они возникнут
+        print(f"Произошла ошибка при удалении файла {file_path}: {e}")
+    
+    max_num = 1  # Количество изображений, которые вы хотите получить
+
+    # Создаем объект GoogleImageCrawler
+    google_crawler = GoogleImageCrawler(storage={'root_dir': 'static'})
+
+    # Настраиваем поиск
+    filters = dict(type='photo')  # Можно добавить дополнительные фильтры
+
+    # Запускаем поиск
+    results = google_crawler.crawl(keyword=keyword, filters=filters, max_num=max_num, file_idx_offset=0)
+    #print(results)
+
+    # Получаем URL первой картинки
+    #first_image_url = results[0]['file_url'] if results else None
+
+    # Выводим URL
+    #print("URL первой картинки:", first_image_url)
+    #return first_image_url
+    return 'static\\000001.jpg'
+
+
 
 @app.route('/')
 def index():
-    greeting_message = 'Привет, мир! Это мой простой веб-сервер на Flask.'
 
-    word = random_word_data
+    word = get_random_data()
 
-    img_url = get_image_url(word)
+    search_images(word['Слово или фраза'])
+
+    #img_url = search_images(word['Слово или фраза'])
+
+    image_path = 'static/000001.jpg'
 
     return render_template('index.html',
-        greeting=greeting_message,
-        random_word_data = random_word_data,
-        img_url = img_url
+        random_word_data = word,
+        image_path=image_path
         )
 
 if __name__ == '__main__':

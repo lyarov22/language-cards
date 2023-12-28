@@ -26,4 +26,6 @@ for row in sheet.iter_rows(min_row=2, values_only=True):  # Начинаем с 
 # for item in data:
 #     print(item)
 
-random_word_data = random.choice(data)
+def get_random_data():
+    random_word_data = random.choice(data)
+    return random_word_data
