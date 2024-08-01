@@ -1,36 +1,41 @@
-# a Flask site that shows one of 8000 popular English words with transcription and translation into Russian, and also shows a photo from Google for this word
-# сайт на Фласке который показывает одно из 8000 популярных английских слов с транскрипцией и переводом на русский, а также показывает фото из гугла по данному слову
+# Technical Documentation
 
-## Техническая Документация
-Введение
-Разрабатываемый веб-сайт, построенный на базе Flask, является образовательным ресурсом, предназначенным для облегчения процесса изучения английского языка. Сайт охватывает более 8000 широкоупотребляемых английских слов, предоставляя подробную информацию, а также визуализацию в виде изображений, полученных из Google. Документация описывает основные функции, структуру проекта и важные технические детали.
+## Introduction
 
-## Функциональность
-### 1. Отображение Слов
-Сайт предоставляет пользователю информацию о случайном слове из базы данных, включая:
+The web application, built with Flask, serves as an educational tool designed to enhance the process of learning English. This site features over 8000 commonly used English words, providing detailed information along with visual aids sourced from Google Images. This documentation outlines the core functionalities, project structure, and essential technical details.
 
-Само слово
-Транскрипцию
-Перевод на русский язык
+## Functionality
 
-### 2. Визуализация изображений
-Каждое слово сопровождается изображением, полученным из результатов поиска Google. Это обогащает обучающий процесс, обеспечивая визуальные ассоциации для улучшения запоминания слов.
+1. **Word Display**
+   The site presents users with information about a random word from the database, including:
+   - The word itself
+   - Phonetic transcription
+   - Russian translation
 
-# Проект состоит из следующих основных компонентов:
-#### app.py: Основной скрипт Flask, который обрабатывает маршруты и рендерит шаблоны.
-#### templates/index.html: HTML-шаблон, отображающий информацию о слове и соответствующее изображение.
-#### static/: Папка для хранения статических файлов, таких как изображения.
+2. **Image Visualization**
+   Each word is accompanied by an image retrieved from Google search results. This feature enriches the learning experience by providing visual associations to aid in word retention.
 
-## Технические Детали
-### 1. Flask и Jinja2
-Flask используется для создания веб-приложения, а Jinja2 для шаблонизации HTML. Маршруты определены в app.py, а шаблоны в templates.
+## Project Components
 
-### 2. Использование icrawler
-Для получения изображений используется библиотека icrawler.
+- **`app.py`**: The main Flask script that handles routing and template rendering.
+- **`templates/index.html`**: The HTML template that displays the word information and associated image.
+- **`static/`**: Directory for storing static files, such as images.
 
-### 3. Запуск Проекта
-#### python app.py
-#### После запуска, сайт будет доступен по адресу http://127.0.0.1:5000/.
+## Technical Details
 
-## Заключение
-Разработанный веб-сайт предоставляет уникальный образовательный опыт, интегрируя информацию о словах с визуальными образами и обеспечивая удобный интерфейс для пользователей. Сайт становится ценным инструментом как для новичков, так и для тех, кто стремится углубить свои языковые навыки.
+1. **Flask and Jinja2**
+   - Flask is used to develop the web application, while Jinja2 handles HTML templating. Routes are defined in `app.py`, and templates are located in the `templates` directory.
+
+2. **Image Retrieval with icrawler**
+   - The `icrawler` library is utilized to fetch images from Google.
+
+3. **Running the Project**
+   - Execute the following command:
+     ```bash
+     python app.py
+     ```
+   - The site will then be accessible at [http://127.0.0.1:5000/](http://127.0.0.1:5000/).
+
+## Conclusion
+
+The developed web application offers a unique educational experience by integrating word information with visual imagery, providing a user-friendly interface for learners. This site is a valuable tool for both beginners and those looking to deepen their language skills.
